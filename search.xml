@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2021/11/28/hello-world/"/>
+      <url>/2021/11/28/hello-world/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分类03 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 标签03 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>test</title>
+      <link href="/2021/11/28/2021-11-28-test/"/>
+      <url>/2021/11/28/2021-11-28-test/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><div class="gallery-group-main">  <figure class="gallery-group">  <img class="gallery-group-img" src='https://i.loli.net/2019/11/10/T7Mu8Aod3egmC4Q.png' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">壁紙</div>  <p>收藏的一些壁紙</p>  <a href='/Gallery/wallpaper'></a>  </figcaption>  </figure>    <figure class="gallery-group">  <img class="gallery-group-img" src='https://i.loli.net/2019/12/25/8t97aVlp4hgyBGu.jpg' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">漫威</div>  <p>關於漫威的圖片</p>  <a href='/Gallery/marvel'></a>  </figcaption>  </figure>    <figure class="gallery-group">  <img class="gallery-group-img" src='https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">OH MY GIRL</div>  <p>關於OH MY GIRL的圖片</p>  <a href='/Gallery/ohmygirl'></a>  </figcaption>  </figure>  </div><div class="justified-gallery"><p><img src="https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg"><br><img src="https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg"><br><img src="https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg"><br><img src="https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg"><br><img src="https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg"><br><img src="https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg"><br><img src="https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg"><br><img src="https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg"></p>          </div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分类02 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 标签02 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Java学习路线</title>
+      <link href="/2021/11/28/blog-test/"/>
+      <url>/2021/11/28/blog-test/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><h1 id="Java学习路线"><a href="#Java学习路线" class="headerlink" title="Java学习路线"></a>Java学习路线</h1><h2 id="一、Java入门"><a href="#一、Java入门" class="headerlink" title="一、Java入门"></a>一、Java入门</h2><h3 id="1、Java基础"><a href="#1、Java基础" class="headerlink" title="1、Java基础"></a>1、Java基础</h3><h3 id="2、Java8新特性"><a href="#2、Java8新特性" class="headerlink" title="2、Java8新特性"></a>2、Java8新特性</h3><h2 id="二、基础巩固"><a href="#二、基础巩固" class="headerlink" title="二、基础巩固"></a>二、基础巩固</h2><h3 id="1、Java基础巩固"><a href="#1、Java基础巩固" class="headerlink" title="1、Java基础巩固"></a>1、Java基础巩固</h3><ul><li>书籍<br>⭐《Java 核心技术卷 1》</li><li>练习<br>⭐ 牛客题库：<a href="https://www.nowcoder.com/intelligentTest">https://www.nowcoder.com/intelligentTest</a><h3 id="2、数据结构与算法"><a href="#2、数据结构与算法" class="headerlink" title="2、数据结构与算法"></a>2、数据结构与算法</h3><h3 id="3、操作系统"><a href="#3、操作系统" class="headerlink" title="3、操作系统"></a>3、操作系统</h3></li><li>视频<br>⭐《清华操作系统原理》：<a href="https://www.bilibili.com/video/BV1uW411f72n">https://www.bilibili.com/video/BV1uW411f72n</a><h3 id="4、计算机网络"><a href="#4、计算机网络" class="headerlink" title="4、计算机网络"></a>4、计算机网络</h3></li><li>视频<br>⭐《计算机网络微课堂》：<a href="https://www.bilibili.com/video/BV1c4411d7jb">https://www.bilibili.com/video/BV1c4411d7jb</a><h2 id="三、Java企业开发"><a href="#三、Java企业开发" class="headerlink" title="三、Java企业开发"></a>三、Java企业开发</h2><h3 id="1、MySQL数据库"><a href="#1、MySQL数据库" class="headerlink" title="1、MySQL数据库"></a>1、MySQL数据库</h3><h3 id="2、开发框架"><a href="#2、开发框架" class="headerlink" title="2、开发框架"></a>2、开发框架</h3></li><li>🌕 Java Web</li><li>🌕 Spring 5</li><li>🌕 SpringMVC</li><li>🌕 MyBatis</li><li>🌗 MyBatis Plus</li><li>🌕 SpringBoot 2</li><li>🌗 Spring Security</li><li>🌗 Maven / Gradle<h3 id="3、Git"><a href="#3、Git" class="headerlink" title="3、Git"></a>3、Git</h3><h3 id="4、Linux"><a href="#4、Linux" class="headerlink" title="4、Linux"></a>4、Linux</h3><h2 id="四、Java企业开发进阶"><a href="#四、Java企业开发进阶" class="headerlink" title="四、Java企业开发进阶"></a>四、Java企业开发进阶</h2><h3 id="1、设计模式"><a href="#1、设计模式" class="headerlink" title="1、设计模式"></a>1、设计模式</h3></li><li>书籍<br>⭐《图解设计模式》<h3 id="2、缓存"><a href="#2、缓存" class="headerlink" title="2、缓存"></a>2、缓存</h3><h3 id="3、消息队列"><a href="#3、消息队列" class="headerlink" title="3、消息队列"></a>3、消息队列</h3><h3 id="4、Nginx"><a href="#4、Nginx" class="headerlink" title="4、Nginx"></a>4、Nginx</h3><h3 id="5、Netty网络编程"><a href="#5、Netty网络编程" class="headerlink" title="5、Netty网络编程"></a>5、Netty网络编程</h3><h3 id="6、🌖微服务"><a href="#6、🌖微服务" class="headerlink" title="6、🌖微服务"></a>6、🌖微服务</h3></li><li>Dubbo</li><li>微服务<h3 id="7、🌖容器"><a href="#7、🌖容器" class="headerlink" title="7、🌖容器"></a>7、🌖容器</h3></li><li>🌖 Docker</li><li>🌘 K8S（Kubernetes）<h3 id="8、🌗-CI-CD"><a href="#8、🌗-CI-CD" class="headerlink" title="8、🌗 CI / CD"></a>8、🌗 CI / CD</h3><h2 id="五、Java高级"><a href="#五、Java高级" class="headerlink" title="五、Java高级"></a>五、Java高级</h2><h3 id="1、并发编程"><a href="#1、并发编程" class="headerlink" title="1、并发编程"></a>1、并发编程</h3></li><li>书籍<br>⭐《Java并发编程实战》（国外的经典）<br>⭐《Java 并发编程艺术》（国人写的，理论思想内容较多，有时间建议反复看）</li><li>项目<br>⭐ Java 并发知识点总结：<a href="https://github.com/CL0610/Java-concurrency">https://github.com/CL0610/Java-concurrency</a><h3 id="2、JVM"><a href="#2、JVM" class="headerlink" title="2、JVM"></a>2、JVM</h3></li><li>书籍<br>⭐《深入理解 Java 虚拟机（第三版）》<h3 id="3、架构设计"><a href="#3、架构设计" class="headerlink" title="3、架构设计"></a>3、架构设计</h3><h2 id="六、持续学习"><a href="#六、持续学习" class="headerlink" title="六、持续学习"></a>六、持续学习</h2><h3 id="1、框架源码"><a href="#1、框架源码" class="headerlink" title="1、框架源码"></a>1、框架源码</h3></li><li>Spring</li><li>SpringBoot</li><li>SpringMVC</li><li>MyBatis</li><li>Netty</li><li>Dubbo</li><li>SpringCloud<h3 id="2、计算机原理"><a href="#2、计算机原理" class="headerlink" title="2、计算机原理"></a>2、计算机原理</h3></li><li>《算法导论》</li><li>《现代操作系统》</li><li>《深入理解计算机系统》</li><li>《编译原理》</li><li>《计算机网络：自顶向下方法》</li><li>《计算机程序的构造和解释》</li><li>《数据库系统概论》</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分类01 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 标签01 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
