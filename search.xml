@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Lambda表达式、Java异常</title>
+      <link href="/2021/12/08/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81Java%E5%BC%82%E5%B8%B8/"/>
+      <url>/2021/12/08/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81Java%E5%BC%82%E5%B8%B8/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><h1 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h1><p>Lambda 表达式只能访问局部变量而不能修改，否则会发生编译错误，但对静态变量和成员变量可读可写。</p><p><strong>Lambda 表达式与匿名内部类的相同点如下：</strong></p><ul><li><p>Lambda 表达式与匿名内部类一样，都可以直接访问 effectively final 的局部变量，以及外部类的成员变量（包括实例变量和类变量）。</p></li><li><p>Lambda 表达式创建的对象与匿名内部类生成的对象一样，都可以直接调用从接口中继承的默认方法。</p></li></ul><p><strong>Lambda 表达式与匿名内部类主要存在如下区别：</strong></p><ul><li>匿名内部类可以为任意接口创建实例——不管接口包含多少个抽象方法，只要匿名内部类实现所有的抽象方法即可；但 Lambda 表达式只能为函数式接口创建实例。</li><li>匿名内部类可以为抽象类甚至普通类创建实例；但 Lambda 表达式只能为函数式接口创建实例。</li><li>匿名内部类实现的抽象方法的方法体允许调用接口中定义的默认方法；但 Lambda 表达式的代码块不允许调用接口中定义的默认方法。</li></ul><h1 id="Java异常处理及常见异常"><a href="#Java异常处理及常见异常" class="headerlink" title="Java异常处理及常见异常"></a>Java异常处理及常见异常</h1><p><strong>Java异常产生的三种原因：</strong></p><ol><li>Java 内部错误发生异常，Java 虚拟机产生的异常。</li><li>编写的程序代码中的错误所产生的异常，例如空指针异常、数组越界异常等。</li><li>通过 throw 语句手动生成的异常，一般用来告知该方法的调用者一些必要信息。</li></ol><p><strong>常见的 Error 和 Exception：</strong></p><p>1）运行时异常（RuntimeException）：</p><ul><li>NullPropagation：空指针异常</li><li>ClassCastException：类型强制转换异常</li><li>IllegalArgumentException：传递非法参数异常</li><li>IndexOutOfBoundsException：下标越界异常</li><li>NumberFormatException：数字格式异常</li></ul><p>2）非运行时异常：</p><ul><li>ClassNotFoundException：找不到指定 class 的异常</li><li>IOException：IO 操作异常</li></ul><p>3）错误（Error）：</p><ul><li>NoClassDefFoundError：找不到 class 定义异常</li><li>StackOverflowError：深递归导致栈被耗尽而抛出的异常</li><li>OutOfMemoryError：内存溢出异常</li></ul><p><strong>异常实例输出异常信息的三个常用方法：</strong></p><ul><li>printStackTrace() 方法：指出异常的类型、性质、栈层次及出现在程序中的位置。</li><li>getMessage() 方法：输出错误的性质。</li><li>toString() 方法：给出异常的类型与性质。</li></ul><p><strong>try catch finally中return的执行顺序</strong></p><ul><li>当 try 代码块和 catch 代码块中有 return 语句时，finally 仍然会被执行。</li><li>执行 try 代码块或 catch 代码块中的 return 语句之前，都会先执行 finally 语句。</li><li>无论在 finally 代码块中是否修改返回值，返回值都不会改变，仍然是执行 finally 代码块之前的值。</li><li>finally 代码块中的 return 语句一定会执行。</li></ul><h1 id="Java自动资源管理"><a href="#Java自动资源管理" class="headerlink" title="Java自动资源管理"></a>Java自动资源管理</h1><p>Java 7 以前，程序中的 finally 代码块为了关闭资源写的“臃肿”，为了解决这种问题，Java 7 增加了一个新特性，该特性提供了另外一种管理资源的方式，这种方式能自动关闭文件，被称为自动资源管理（Automatic Resource Management）。该特性是在 try 语句上的扩展，主要释放不再需要的文件或其他资源。</p><p>当 try 代码块结束时，自动释放资源。不再需要显式的调用 close() 方法，该形式也称为“带资源的 try 语句”。</p><p><strong><font color=red>注意：</font></strong></p><ol><li>try 语句中声明的资源被隐式声明为 final，资源的作用局限于带资源的 try 语句。</li><li>可以在一条 try 语句中声明或初始化多个资源，每个资源以<code>;</code>隔开即可。</li><li>需要关闭的资源必须实现了 AutoCloseable 或 Closeable 接口。</li></ol><p>Java 9 再次增强了这种 try 语句。Java 9 不要求在 try 后的圆括号内声明并创建资源，只需要自动关闭的资源有 final 修饰或者是有效的 final (effectively final)，Java 9 允许将资源变量放在 try 后的圆括号内。</p><h1 id="Java异常的声明好抛出"><a href="#Java异常的声明好抛出" class="headerlink" title="Java异常的声明好抛出"></a>Java异常的声明好抛出</h1><p>Java中的异常处理除了捕获异常和处理异常之外，还包括声明异常和拋出异常。实现声明和抛出异常的关键字非常相似，它们是 throws 和 throw。可以通过 throws 关键字在方法上声明该方法要拋出的异常，然后在方法内部通过 throw 拋出异常对象。</p><p>使用 throws 声明抛出异常的思路是，当前方法不知道如何处理这种类型的异常，该异常应该由向上一级的调用者处理；如果 main 方法也不知道如何处理这种类型的异常，也可以使用 throws 声明抛出异常，该异常将交给 JVM 处理。JVM 对异常的处理方法是，打印异常的跟踪栈信息，并中止程序运行，这就是前面程序在遇到异常后自动结束的原因。</p><h1 id="自定义异常类"><a href="#自定义异常类" class="headerlink" title="自定义异常类"></a>自定义异常类</h1><p>自定义异常类一般包含两个构造方法：一个是无参的默认构造方法，另一个构造方法以字符串的形式接收一个定制的异常消息，并将该消息传递给超类的构造方法。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>继承和多态</title>
       <link href="/2021/12/03/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/"/>
       <url>/2021/12/03/%E7%BB%A7%E6%89%BF%E5%92%8C%E5%A4%9A%E6%80%81/</url>
