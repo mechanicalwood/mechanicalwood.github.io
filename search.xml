@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Java集合</title>
+      <link href="/2021/12/13/Java%E9%9B%86%E5%90%88/"/>
+      <url>/2021/12/13/Java%E9%9B%86%E5%90%88/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><h1 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h1><p>Set 集合中的对象不按特定的方式排序，只是简单地把对象加入集合。Set 集合中不能包含重复的对象，并且最多只允许包含一个 null 元素。</p><p>Set 实现了 Collection 接口，它主要有两个常用的实现类：HashSet 类和 TreeSet类。</p><h2 id="HashSet类"><a href="#HashSet类" class="headerlink" title="HashSet类"></a>HashSet类</h2><p>HashSet 具有以下特点：</p><ul><li>不能保证元素的排列顺序，顺序可能与添加顺序不同，顺序也有可能发生变化。</li><li><strong>HashSet 不是同步的，</strong>如果多个线程同时访问或修改一个 HashSet，则必须通过代码来保证其同步。</li><li>集合元素值可以是 null。</li></ul><p>当向 HashSet 集合中存入一个元素时，HashSet 会调用该对象的 hashCode() 方法来得到该对象的 hashCode 值，然后根据该 hashCode 值决定该对象在 HashSet 中的存储位置。如果有两个元素通过 equals() 方法比较返回的结果为 true，但它们的 hashCode 不相等，HashSet 将会把它们存储在不同的位置，依然可以添加成功。也就是说，<strong>两个对象的 hashCode 值相等且通过 equals() 方法比较返回结果为 true，则 HashSet 集合认为两个元素相等。</strong></p><h2 id="TreeSet类"><a href="#TreeSet类" class="headerlink" title="TreeSet类"></a>TreeSet类</h2><p>TreeSet 类同时实现了 Set 接口和 SortedSet 接口。SortedSet 接口是 Set 接口的子接口，可以实现对集合进行自然排序，因此使用 TreeSet 类实现的 Set 接口默认情况下是自然排序的，这里的自然排序指的是升序排序。</p><p><strong>TreeSet 只能对实现了 Comparable 接口的类对象进行排序，</strong>因为 Comparable 接口中有一个 compareTo(Object o) 方法用于比较两个对象的大小。例如 a.compareTo(b)，如果 a 和 b 相等，则该方法返回 0；如果 a 大于 b，则该方法返回大于 0 的值；如果 a 小于 b，则该方法返回小于 0 的值。</p><h1 id="Map集合"><a href="#Map集合" class="headerlink" title="Map集合"></a>Map集合</h1><p>Map 是一种键-值对（key-value）集合，Map 集合中的每一个元素都包含一个键（key）对象和一个值（value）对象。用于保存具有映射关系的数据。</p><p>Map 集合里保存着两组值，一组值用于保存 Map 里的 key，另外一组值用于保存 Map 里的 value，key 和 value 都可以是任何引用类型的数据。<strong>Map 的 key 不允许重复，value 可以重复，即同一个 Map 对象的任何两个 key 通过 equals 方法比较总是返回 false。</strong></p><p><strong>Map 中的 key 和 value 之间存在单向一对一关系，即通过指定的 key，总能找到唯一的、确定的 value。</strong>从 Map 中取出数据时，只要给出指定的 key，就可以取出对应的 value。</p><p><strong>Map 接口主要有两个实现类：HashMap 类和 TreeMap 类。其中，HashMap 类按哈希算法来存取键对象，而 TreeMap 类可以对键对象进行排序。</strong></p><p>TreeMap 类的使用方法与 HashMap 类相同，唯一不同的是 TreeMap 类可以对键对象进行排序。</p><h2 id="遍历Map的四种方式："><a href="#遍历Map的四种方式：" class="headerlink" title="遍历Map的四种方式："></a>遍历Map的四种方式：</h2><ol><li>在 for 循环中使用 entries 实现 Map 的遍历（最常见和最常用的）</li><li>使用 for-each 循环遍历 key 或者 values，一般适用于只需要 Map 中的 key 或者 value 时使用。性能上比 entrySet 较好。</li><li>使用迭代器（Iterator）遍历</li><li>通过键找值遍历，这种方式的效率比较低，因为本身从键取值是耗时的操作。</li></ol><h1 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h1><p>Iterator（迭代器）是一个接口，它的作用就是遍历容器的所有元素，也是 Java 集合框架的成员，但它与 Collection 和 Map 系列的集合不一样，Collection 和 Map 系列集合主要用于盛装其他对象，而 Iterator 则主要用于遍历（即迭代访问）Collection 集合中的元素。</p><p>当使用 Iterator 对集合元素进行迭代时，Iterator 并不是把集合元素本身传给了迭代变量，而是把集合元素的值传给了迭代变量，所以<strong>修改迭代变量的值对集合元素本身没有任何影响</strong>。当使用 Iterator 迭代访问 Collection 集合元素时，Collection 集合里的元素不能被改变，只有通过 Iterator 的 remove() 方法删除上一次 next() 方法返回的集合元素才可以，否则将会引发“java.util.ConcurrentModificationException”异常。</p><p>Iterator 迭代器采用的是<strong>快速失败（fail-fast）机制</strong>，一旦在迭代过程中检测到该集合已经被修改（通常是程序中的其他线程修改），程序立即引发 ConcurrentModificationException 异常，而不是显示修改后的结果，这样可以避免共享资源而引发的潜在问题。</p><h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><p>Stream 提供了大量的方法进行聚集操作，这些方法既可以是“中间的”（intermediate），也可以是 “末端的”（terminal）。</p><ul><li>中间方法：中间操作允许流保持打开状态，并允许直接调用后续方法。 map() 方法就是中间方法。中间方法的返回值是另外一个流。</li><li>末端方法：末端方法是对流的最终操作。当对某个 Stream 执行末端方法后，该流将会被“消耗”且不再可用。 sum()、count()、average() 等方法都是末端方法。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Lambda表达式、Java异常</title>
       <link href="/2021/12/08/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81Java%E5%BC%82%E5%B8%B8/"/>
       <url>/2021/12/08/Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E3%80%81Java%E5%BC%82%E5%B8%B8/</url>
