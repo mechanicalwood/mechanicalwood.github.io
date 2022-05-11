@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Spring Cloud初识</title>
+      <link href="/2022/04/19/Spring%20Cloud/"/>
+      <url>/2022/04/19/Spring%20Cloud/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><h1 id="什么是Spring-Cloud"><a href="#什么是Spring-Cloud" class="headerlink" title="什么是Spring Cloud"></a>什么是Spring Cloud</h1><p>Spring Cloud 是分布式微服务架构的一站式解决方案，它提供了一套简单易用的编程模型，使我们能在 Spring Boot 的基础上轻松地实现微服务系统的构建。</p><p>Spring Cloud 被称为构建分布式微服务系统的“全家桶”，它并不是某一门技术，而是一系列微服务解决方案或框架的有序集合。它将市面上成熟的、经过验证的微服务框架整合起来，并通过 Spring Boot 的思想进行再封装，屏蔽调其中复杂的配置和实现原理，最终为开发人员提供了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p><p>Spring Cloud 中包含了 spring-cloud-config、spring-cloud-bus 等近 20 个子项目，提供了服务治理、服务网关、智能路由、负载均衡、断路器、监控跟踪、分布式消息队列、配置管理等领域的解决方案。</p><p>Spring Cloud 本身并不是一个拿来即可用的框架，它是一套微服务规范，共有两代实现。</p><ul><li>Spring Cloud Netflix 是 Spring Cloud 的第一代实现，主要由 Eureka、Ribbon、Feign、Hystrix 等组件组成。</li><li>Spring Cloud Alibaba 是 Spring Cloud 的第二代实现，主要由 Nacos、Sentinel、Seata 等组件组成。</li></ul><h1 id="Spring-Boot-和-Spring-Cloud-的区别与联系"><a href="#Spring-Boot-和-Spring-Cloud-的区别与联系" class="headerlink" title="Spring Boot 和 Spring Cloud 的区别与联系"></a>Spring Boot 和 Spring Cloud 的区别与联系</h1><p>Spring Boot 和 Spring Cloud 都是 Spring 大家族的一员，它们在微服务开发中都扮演着十分重要的角色，两者之间既存在区别也存在联系。</p><h4 id="1-Spring-Boot-和-Spring-Cloud-分工不同"><a href="#1-Spring-Boot-和-Spring-Cloud-分工不同" class="headerlink" title="1. Spring Boot 和 Spring Cloud 分工不同"></a>1. Spring Boot 和 Spring Cloud 分工不同</h4><p>Spring Boot 是一个基于 Spring 的快速开发框架，它能够帮助开发者迅速搭 Web 工程。在微服务开发中，Spring Boot 专注于快速、方便地开发单个微服务。</p><p>Spring Cloud 是微服务架构下的一站式解决方案。Spring Cloud 专注于全局微服务的协调和治理工作。换句话说，Spring Cloud 相当于微服务的大管家，负责将 Spring Boot 开发的一个个微服务管理起来，并为它们提供配置管理、服务发现、断路器、路由、微代理、事件总线、决策竞选以及分布式会话等服务。</p><h4 id="2-Spring-Cloud-是基于-Spring-Boot-实现的"><a href="#2-Spring-Cloud-是基于-Spring-Boot-实现的" class="headerlink" title="2. Spring Cloud 是基于 Spring Boot 实现的"></a>2. Spring Cloud 是基于 Spring Boot 实现的</h4><p>Spring Cloud 是基于 Spring Boot 实现的。与 Spring Boot 类似，Spring Cloud 也为提供了一系列 Starter，这些 Starter 是 Spring Cloud 使用 Spring Boot 思想对各个微服务框架进行再封装的产物。它们屏蔽了这些微服务框架中复杂的配置和实现原理，使开发人员能够快速、方便地使用 Spring Cloud 搭建一套分布式微服务系统。</p><h4 id="3-Spring-Boot-和-Spring-Cloud-依赖项数量不同"><a href="#3-Spring-Boot-和-Spring-Cloud-依赖项数量不同" class="headerlink" title="3. Spring Boot 和 Spring Cloud 依赖项数量不同"></a>3. Spring Boot 和 Spring Cloud 依赖项数量不同</h4><p>Spring Boot 属于一种轻量级的框架，构建 Spring Boot 工程所需的依赖较少。</p><p>Spring Cloud 是一系列微服务框架技术的集合体，它的每个组件都需要一个独立的依赖项（Starter POM），因此想要构建一套完整的 Spring Cloud 工程往往需要大量的依赖项。</p><h4 id="4-Spring-Cloud-不能脱离-Spring-Boot-单独运行"><a href="#4-Spring-Cloud-不能脱离-Spring-Boot-单独运行" class="headerlink" title="4. Spring Cloud 不能脱离 Spring Boot 单独运行"></a>4. Spring Cloud 不能脱离 Spring Boot 单独运行</h4><p>Spring Boot 不需要 Spring Cloud，就能直接创建可独立运行的工程或模块。</p><p>Spring Cloud 是基于 Spring Boot 实现的，它不能独立创建工程或模块，更不能脱离 Spring Boot 独立运行。</p><h1 id="Spring-Cloud-Netflix常用组件"><a href="#Spring-Cloud-Netflix常用组件" class="headerlink" title="Spring Cloud Netflix常用组件"></a>Spring Cloud Netflix常用组件</h1><table><thead><tr><th>Spring Cloud 组件</th><th>描述</th></tr></thead><tbody><tr><td>Spring Cloud Netflix Eureka</td><td>Spring Cloud Netflix 中的服务治理组件，包含服务注册中心、服务注册与发现机制的实现。</td></tr><tr><td>Spring Cloud Netflix Ribbon</td><td>Spring Cloud Netflix 中的服务调用和客户端负载均衡组件。</td></tr><tr><td>Spring Cloud Netflix Hystrix</td><td>人称“豪猪哥”，Spring Cloud Netflix 的容错管理组件，为服务中出现的延迟和故障提供强大的容错能力。</td></tr><tr><td>Spring Cloud Netflix Feign</td><td>基于 Ribbon 和 Hystrix 的声明式服务调用组件。</td></tr><tr><td>Spring Cloud Netflix Zuul</td><td>Spring Cloud Netflix 中的网关组件，提供了智能路由、访问过滤等功能。</td></tr><tr><td>Spring Cloud Gateway</td><td>一个基于 Spring 5.0，Spring Boot 2.0 和 Project Reactor 等技术开发的网关框架，它使用 Filter 链的方式提供了网关的基本功能，例如安全、监控/指标和限流等。</td></tr><tr><td>Spring Cloud Config</td><td>Spring Cloud 的配置管理工具，支持使用 Git 存储配置内容，实现应用配置的外部化存储，并支持在客户端对配置进行刷新、加密、解密等操作。</td></tr><tr><td>Spring Cloud Bus</td><td>Spring Cloud 的事件和消息总线，主要用于在集群中传播事件或状态变化，以触发后续的处理，例如动态刷新配置。</td></tr><tr><td>Spring Cloud Stream</td><td>Spring Cloud 的消息中间件组件，它集成了 Apache Kafka 和 RabbitMQ 等消息中间件，并通过定义绑定器作为中间层，完美地实现了应用程序与消息中间件之间的隔离。通过向应用程序暴露统一的 Channel 通道，使得应用程序不需要再考虑各种不同的消息中间件实现，就能轻松地发送和接收消息。</td></tr><tr><td>Spring Cloud Sleuth</td><td>Spring Cloud 分布式链路跟踪组件，能够完美的整合 Twitter 的 Zipkin。</td></tr></tbody></table><h1 id="Spring-Cloud-Alibaba-组件"><a href="#Spring-Cloud-Alibaba-组件" class="headerlink" title="Spring Cloud Alibaba 组件"></a>Spring Cloud Alibaba 组件</h1><p>Spring Cloud Alibaba 包含了多种开发分布式微服务系统的必需组件</p><ul><li>Nacos：阿里巴巴开源产品，一个更易于构建云原生应用的动态服务发现,配置管理和服务管理平台。</li><li>Sentinel：阿里巴巴开源产品，把流量作为切入点,从流量控制,熔断降级,系统负载保护等多个维度保护服务的稳定性。</li><li>RocketMQ：Apache RocketMQ 是一款基于Java 的高性能、高吞吐量的分布式消息和流计算平台。</li><li>Dubbo：Apache Dubbo 是一款高性能的 Java RPC 框架。</li><li>Seata：阿里巴巴开源产品，一个易于使用的高性能微服务分布式事务解决方案。</li><li>Alibaba Cloud OSS：阿里云对象存储服务器（Object Storage Service，简称OSS），是阿里云提供的海量、安全、低成本、高可靠的云存储服务。</li><li>Alibaba Cloud Schedulerx：阿里中间件团队开发的一款分布式调度产品,支持周期性的任务与固定时间点触发任务。</li></ul><p>通过 Spring Cloud Alibaba 的这些组件，我们只需要添加一些注解和少量配置，就可以将 Spring Cloud 应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Spring Cloud </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Spring Boot其它支持</title>
       <link href="/2022/04/14/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/"/>
       <url>/2022/04/14/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/</url>
@@ -396,81 +421,6 @@
         <tags>
             
             <tag> Java基础 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Hello World</title>
-      <link href="/2021/11/28/hello-world/"/>
-      <url>/2021/11/28/hello-world/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 分类03 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 标签03 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>test</title>
-      <link href="/2021/11/28/2021-11-28-test/"/>
-      <url>/2021/11/28/2021-11-28-test/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><div class="gallery-group-main">  <figure class="gallery-group">  <img class="gallery-group-img" src='https://i.loli.net/2019/11/10/T7Mu8Aod3egmC4Q.png' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">壁紙</div>  <p>收藏的一些壁紙</p>  <a href='/Gallery/wallpaper'></a>  </figcaption>  </figure>    <figure class="gallery-group">  <img class="gallery-group-img" src='https://i.loli.net/2019/12/25/8t97aVlp4hgyBGu.jpg' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">漫威</div>  <p>關於漫威的圖片</p>  <a href='/Gallery/marvel'></a>  </figcaption>  </figure>    <figure class="gallery-group">  <img class="gallery-group-img" src='https://i.loli.net/2019/12/25/hOqbQ3BIwa6KWpo.jpg' alt="Group Image Gallery">  <figcaption>  <div class="gallery-group-name">OH MY GIRL</div>  <p>關於OH MY GIRL的圖片</p>  <a href='/Gallery/ohmygirl'></a>  </figcaption>  </figure>  </div><div class="justified-gallery"><p><img src="https://i.loli.net/2019/12/25/Fze9jchtnyJXMHN.jpg"><br><img src="https://i.loli.net/2019/12/25/ryLVePaqkYm4TEK.jpg"><br><img src="https://i.loli.net/2019/12/25/gEy5Zc1Ai6VuO4N.jpg"><br><img src="https://i.loli.net/2019/12/25/d6QHbytlSYO4FBG.jpg"><br><img src="https://i.loli.net/2019/12/25/6nepIJ1xTgufatZ.jpg"><br><img src="https://i.loli.net/2019/12/25/E7Jvr4eIPwUNmzq.jpg"><br><img src="https://i.loli.net/2019/12/25/mh19anwBSWIkGlH.jpg"><br><img src="https://i.loli.net/2019/12/25/2tu9JC8ewpBFagv.jpg"></p>          </div>]]></content>
-      
-      
-      <categories>
-          
-          <category> 分类02 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 标签02 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Java学习路线</title>
-      <link href="/2021/11/28/blog-test/"/>
-      <url>/2021/11/28/blog-test/</url>
-      
-        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="https://cdn.jsdelivr.net/npm/meting/dist/Meting.min.js"></script><h1 id="Java学习路线"><a href="#Java学习路线" class="headerlink" title="Java学习路线"></a>Java学习路线</h1><h2 id="一、Java入门"><a href="#一、Java入门" class="headerlink" title="一、Java入门"></a>一、Java入门</h2><h3 id="1、Java基础"><a href="#1、Java基础" class="headerlink" title="1、Java基础"></a>1、Java基础</h3><h3 id="2、Java8新特性"><a href="#2、Java8新特性" class="headerlink" title="2、Java8新特性"></a>2、Java8新特性</h3><h2 id="二、基础巩固"><a href="#二、基础巩固" class="headerlink" title="二、基础巩固"></a>二、基础巩固</h2><h3 id="1、Java基础巩固"><a href="#1、Java基础巩固" class="headerlink" title="1、Java基础巩固"></a>1、Java基础巩固</h3><ul><li>书籍<br>⭐《Java 核心技术卷 1》</li><li>练习<br>⭐ 牛客题库：<a href="https://www.nowcoder.com/intelligentTest">https://www.nowcoder.com/intelligentTest</a><h3 id="2、数据结构与算法"><a href="#2、数据结构与算法" class="headerlink" title="2、数据结构与算法"></a>2、数据结构与算法</h3><h3 id="3、操作系统"><a href="#3、操作系统" class="headerlink" title="3、操作系统"></a>3、操作系统</h3></li><li>视频<br>⭐《清华操作系统原理》：<a href="https://www.bilibili.com/video/BV1uW411f72n">https://www.bilibili.com/video/BV1uW411f72n</a><h3 id="4、计算机网络"><a href="#4、计算机网络" class="headerlink" title="4、计算机网络"></a>4、计算机网络</h3></li><li>视频<br>⭐《计算机网络微课堂》：<a href="https://www.bilibili.com/video/BV1c4411d7jb">https://www.bilibili.com/video/BV1c4411d7jb</a><h2 id="三、Java企业开发"><a href="#三、Java企业开发" class="headerlink" title="三、Java企业开发"></a>三、Java企业开发</h2><h3 id="1、MySQL数据库"><a href="#1、MySQL数据库" class="headerlink" title="1、MySQL数据库"></a>1、MySQL数据库</h3><h3 id="2、开发框架"><a href="#2、开发框架" class="headerlink" title="2、开发框架"></a>2、开发框架</h3></li><li>🌕 Java Web</li><li>🌕 Spring 5</li><li>🌕 SpringMVC</li><li>🌕 MyBatis</li><li>🌗 MyBatis Plus</li><li>🌕 SpringBoot 2</li><li>🌗 Spring Security</li><li>🌗 Maven / Gradle<h3 id="3、Git"><a href="#3、Git" class="headerlink" title="3、Git"></a>3、Git</h3><h3 id="4、Linux"><a href="#4、Linux" class="headerlink" title="4、Linux"></a>4、Linux</h3><h2 id="四、Java企业开发进阶"><a href="#四、Java企业开发进阶" class="headerlink" title="四、Java企业开发进阶"></a>四、Java企业开发进阶</h2><h3 id="1、设计模式"><a href="#1、设计模式" class="headerlink" title="1、设计模式"></a>1、设计模式</h3></li><li>书籍<br>⭐《图解设计模式》<h3 id="2、缓存"><a href="#2、缓存" class="headerlink" title="2、缓存"></a>2、缓存</h3><h3 id="3、消息队列"><a href="#3、消息队列" class="headerlink" title="3、消息队列"></a>3、消息队列</h3><h3 id="4、Nginx"><a href="#4、Nginx" class="headerlink" title="4、Nginx"></a>4、Nginx</h3><h3 id="5、Netty网络编程"><a href="#5、Netty网络编程" class="headerlink" title="5、Netty网络编程"></a>5、Netty网络编程</h3><h3 id="6、🌖微服务"><a href="#6、🌖微服务" class="headerlink" title="6、🌖微服务"></a>6、🌖微服务</h3></li><li>Dubbo</li><li>微服务<h3 id="7、🌖容器"><a href="#7、🌖容器" class="headerlink" title="7、🌖容器"></a>7、🌖容器</h3></li><li>🌖 Docker</li><li>🌘 K8S（Kubernetes）<h3 id="8、🌗-CI-CD"><a href="#8、🌗-CI-CD" class="headerlink" title="8、🌗 CI / CD"></a>8、🌗 CI / CD</h3><h2 id="五、Java高级"><a href="#五、Java高级" class="headerlink" title="五、Java高级"></a>五、Java高级</h2><h3 id="1、并发编程"><a href="#1、并发编程" class="headerlink" title="1、并发编程"></a>1、并发编程</h3></li><li>书籍<br>⭐《Java并发编程实战》（国外的经典）<br>⭐《Java 并发编程艺术》（国人写的，理论思想内容较多，有时间建议反复看）</li><li>项目<br>⭐ Java 并发知识点总结：<a href="https://github.com/CL0610/Java-concurrency">https://github.com/CL0610/Java-concurrency</a><h3 id="2、JVM"><a href="#2、JVM" class="headerlink" title="2、JVM"></a>2、JVM</h3></li><li>书籍<br>⭐《深入理解 Java 虚拟机（第三版）》<h3 id="3、架构设计"><a href="#3、架构设计" class="headerlink" title="3、架构设计"></a>3、架构设计</h3><h2 id="六、持续学习"><a href="#六、持续学习" class="headerlink" title="六、持续学习"></a>六、持续学习</h2><h3 id="1、框架源码"><a href="#1、框架源码" class="headerlink" title="1、框架源码"></a>1、框架源码</h3></li><li>Spring</li><li>SpringBoot</li><li>SpringMVC</li><li>MyBatis</li><li>Netty</li><li>Dubbo</li><li>SpringCloud<h3 id="2、计算机原理"><a href="#2、计算机原理" class="headerlink" title="2、计算机原理"></a>2、计算机原理</h3></li><li>《算法导论》</li><li>《现代操作系统》</li><li>《深入理解计算机系统》</li><li>《编译原理》</li><li>《计算机网络：自顶向下方法》</li><li>《计算机程序的构造和解释》</li><li>《数据库系统概论》</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 分类01 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 标签01 </tag>
             
         </tags>
       
