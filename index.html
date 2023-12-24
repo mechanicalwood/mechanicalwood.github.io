@@ -1,7 +1,216 @@
-extends includes/layout.pug
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Jerry的博客 - 过往可恋，未来需迎，当下不杂。</title><meta name="author" content="Jerry,17795837526@163.com"><meta name="copyright" content="Jerry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="过往可恋，未来需迎，当下不杂。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Jerry的博客">
+<meta property="og:url" content="https://mechanicalwood.github.io/index.html">
+<meta property="og:site_name" content="Jerry的博客">
+<meta property="og:description" content="过往可恋，未来需迎，当下不杂。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="Jerry">
+<meta property="article:tag" content="keywords">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mechanicalwood.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Jerry的博客',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-24 15:55:43'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
 
-block content
-  include ./includes/mixins/post-ui.pug
-  #recent-posts.recent-posts
-    +postUI
-    include includes/pagination.pug
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Jerry的博客"><span class="site-name">Jerry的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Jerry的博客</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题"><div class="post-bg" style="background: https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题">无题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-26T00:47:52.000Z" title="发表于 2022-07-26 08:47:52">2022-07-26</time></span></div><div class="content">自定义持久层框架一、JDBC问题分析1、数据库配置信息存在硬编码问题（不经常发生改变）
+解决方案：配置文件
+2、频繁创建释放数据库连接
+解决方案：连接池
+3、SQL语句、设置参数、获取结果参数均存在硬编码问题（经常发生改变）
+解决方案：配置文件
+4、需要手动封装返回结果集，较为繁琐
+解决方案：反射、内省
+二、自定义持久层框架设计思路使用端：也就是我们的开发项目，需要引入自定义持久层框架的jar包提供两部分配置信息：数据库配置信息、sql配置信息（sql语句、参数类型、返回值类型）
+使用配置文件来提供这两部分配置信息：
+
+sqlMapConfig.xml：存放数据库配置信息（存放mapper.xml的全路径，只需加载一次配置文件）
+mapper.xml：存放sql配置信息
+
+自定义持久层框架本身：本质是对JDBC进行了封装
+加载配置文件：根据配置文件的路径，加载配置文件成字节输入流，存储在内存中。创建Resources类，InputStream getResourceAsStream(String path)
+创建Resources类，根据配置文件的路径，将配置文件加载成字节输入流，存储 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持"><div class="post-bg" style="background: picture/cover/SpringBoot.png"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持">Spring Boot其它支持</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-07-03T03:20:24.000Z" title="发表于 2022-07-03 11:20:24">2022-07-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/">开发框架</a></span></div><div class="content">Spring Boot 静态资源映射Spring Boot 默认为我们提供了 3 种静态资源映射规则：
+
+WebJars 映射
+默认资源映射
+静态首页（欢迎页）映射
+
+WebJars 映射为了让页面更加美观，让用户有更多更好的体验，Web 应用中通常会使用大量的 JS 和 CSS，例如 jQuery，Backbone.js 和 Bootstrap 等等。通常我们会将这些 Web 前端资源拷贝到 Java Web 项目的 webapp 相应目录下进行管理。但是 Spring Boot 项目是以 JAR 包的形式进行部署的，不存在 webapp 目录，那么 Web 前端资源该如何引入到 Spring Boot 项目中呢？
+WebJars 可以完美的解决上面的问题，它可以 Jar 形式为 Web 项目提供资源文件。
+WebJars 可以将 Web 前端资源（JS，CSS 等）打成一个个的 Jar 包，然后将这些 Jar 包部署到 Maven 中央仓库中进行统一管理，当 Spring Boot 项目中需要引入 Web 前端资源时，只需要访问 WebJars 官网，找到所需资源的 pom 依赖， ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识"><div class="post-bg" style="background: picture/cover/SpringCloud.png"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识">Spring Cloud初识</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-05-11T02:45:14.000Z" title="发表于 2022-05-11 10:45:14">2022-05-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/">开发框架</a></span></div><div class="content">什么是Spring CloudSpring Cloud 是分布式微服务架构的一站式解决方案，它提供了一套简单易用的编程模型，使我们能在 Spring Boot 的基础上轻松地实现微服务系统的构建。
+Spring Cloud 被称为构建分布式微服务系统的“全家桶”，它并不是某一门技术，而是一系列微服务解决方案或框架的有序集合。它将市面上成熟的、经过验证的微服务框架整合起来，并通过 Spring Boot 的思想进行再封装，屏蔽调其中复杂的配置和实现原理，最终为开发人员提供了一套简单易懂、易部署和易维护的分布式系统开发工具包。
+Spring Cloud 中包含了 spring-cloud-config、spring-cloud-bus 等近 20 个子项目，提供了服务治理、服务网关、智能路由、负载均衡、断路器、监控跟踪、分布式消息队列、配置管理等领域的解决方案。
+Spring Cloud 本身并不是一个拿来即可用的框架，它是一套微服务规范，共有两代实现。
+
+Spring Cloud Netflix 是 Spring Cloud 的第一代实现，主要由 Eureka、Ribbon、Feign、 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲"><div class="post-bg" style="background: picture/cover/Servlet.png"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲">Servlet基础大纲</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-04-15T00:52:44.000Z" title="发表于 2022-04-15 08:52:44">2022-04-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合"><div class="post-bg" style="background: picture/cover/cover08.jpg"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合">Java集合</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-04-14T00:18:32.000Z" title="发表于 2022-04-14 08:18:32">2022-04-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">Set集合Set 集合中的对象不按特定的方式排序，只是简单地把对象加入集合。Set 集合中不能包含重复的对象，并且最多只允许包含一个 null 元素。
+Set 实现了 Collection 接口，它主要有两个常用的实现类：HashSet 类和 TreeSet类。
+HashSet类HashSet 具有以下特点：
+
+不能保证元素的排列顺序，顺序可能与添加顺序不同，顺序也有可能发生变化。
+HashSet 不是同步的，如果多个线程同时访问或修改一个 HashSet，则必须通过代码来保证其同步。
+集合元素值可以是 null。
+
+当向 HashSet 集合中存入一个元素时，HashSet 会调用该对象的 hashCode() 方法来得到该对象的 hashCode 值，然后根据该 hashCode 值决定该对象在 HashSet 中的存储位置。如果有两个元素通过 equals() 方法比较返回的结果为 true，但它们的 hashCode 不相等，HashSet 将会把它们存储在不同的位置，依然可以添加成功。也就是说，两个对象的 hashCode 值相等且通过 equals() 方法比较返回结果为  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/04/14/Java%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%B3%A8%E8%A7%A3/" title="Java反射与注解"><div class="post-bg" style="background: picture/cover/cover08.jpg"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/14/Java%E5%8F%8D%E5%B0%84%E4%B8%8E%E6%B3%A8%E8%A7%A3/" title="Java反射与注解">Java反射与注解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-04-14T00:18:20.000Z" title="发表于 2022-04-14 08:18:20">2022-04-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">Java反射机制Java程序运行要经历编译期和运行期，反射是指在程序运行期可以动态获取类的属性和方法，以及可以动态调用对象的方法的功能。
+反射优缺点优点：
+
+能够运行时动态获取类的实例，大大提高系统的灵活性和扩展性。
+与 Java 动态编译相结合，可以实现无比强大的功能。
+对于 Java 这种先编译再运行的语言，能够让我们很方便的创建灵活的代码，这些代码可以在运行时装配，无需在组件之间进行源代码的链接，更加容易实现面向对象。
+
+缺点：
+
+反射会消耗一定的系统资源，因此，如果不需要动态地创建一个对象，那么就不需要用反射；
+反射调用方法时可以忽略权限检查，获取这个类的私有方法和属性，因此可能会破坏类的封装性而导致安全问题。
+
+对象序列化对象序列化（Serialize）指将一个 Java 对象写入 IO 流中，与此对应的是，对象的反序列化（Deserialize）则指从 IO 流中恢复该 Java 对象。如果想让某个 Java 对象能够序列化，则必须让它的类实现 java.io.Serializable 接口。
+Serializable 接口是一个空接口，实现该接口无须实现任何方法，它只是告 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/04/14/%E8%88%AA%E6%8B%8D%E9%95%9C%E5%A4%B4%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%90%8E%E6%9C%9F%E5%89%AA%E8%BE%91/" title="航拍镜头设计与后期剪辑"><div class="post-bg" style="background: picture/cover/hangpai02.jpg"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/14/%E8%88%AA%E6%8B%8D%E9%95%9C%E5%A4%B4%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%90%8E%E6%9C%9F%E5%89%AA%E8%BE%91/" title="航拍镜头设计与后期剪辑">航拍镜头设计与后期剪辑</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-04-14T00:17:04.000Z" title="发表于 2022-04-14 08:17:04">2022-04-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%A7%86%E9%A2%91%E5%89%AA%E8%BE%91/">视频剪辑</a></span></div><div class="content">
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/04/14/Maven%E4%BE%9D%E8%B5%96%E8%B0%83%E8%A7%A3/" title="Maven依赖调解"><div class="post-bg" style="background: picture/cover/maven01.png"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/14/Maven%E4%BE%9D%E8%B5%96%E8%B0%83%E8%A7%A3/" title="Maven依赖调解">Maven依赖调解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-04-14T00:16:22.000Z" title="发表于 2022-04-14 08:16:22">2022-04-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></span></div><div class="content">
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2022/04/14/Maven/" title="Maven思维导图"><div class="post-bg" style="background: picture/cover/maven01.png"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/14/Maven/" title="Maven思维导图">Maven思维导图</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-04-14T00:16:08.000Z" title="发表于 2022-04-14 08:16:08">2022-04-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></span></div><div class="content">
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2022/04/14/MySQL%20expaln%E8%AF%A6%E8%A7%A3/" title="MySQL explain详解"><div class="post-bg" style="background: picture/cover/MySQL01.png"></div></a></div><div class="recent-post-info"><a class="article-title" href="/2022/04/14/MySQL%20expaln%E8%AF%A6%E8%A7%A3/" title="MySQL explain详解">MySQL explain详解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2022-04-14T00:15:08.000Z" title="发表于 2022-04-14 08:15:08">2022-04-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="content">
+</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jerry</div><div class="author-info__description">过往可恋，未来需迎，当下不杂。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题"><div style="background: https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"></div></a><div class="content"><a class="title" href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题">无题</a><time datetime="2022-07-26T00:47:52.000Z" title="发表于 2022-07-26 08:47:52">2022-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持"><div style="background: picture/cover/SpringBoot.png"></div></a><div class="content"><a class="title" href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持">Spring Boot其它支持</a><time datetime="2022-07-03T03:20:24.000Z" title="发表于 2022-07-03 11:20:24">2022-07-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识"><div style="background: picture/cover/SpringCloud.png"></div></a><div class="content"><a class="title" href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识">Spring Cloud初识</a><time datetime="2022-05-11T02:45:14.000Z" title="发表于 2022-05-11 10:45:14">2022-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲"><div style="background: picture/cover/Servlet.png"></div></a><div class="content"><a class="title" href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲">Servlet基础大纲</a><time datetime="2022-04-15T00:52:44.000Z" title="发表于 2022-04-15 08:52:44">2022-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合"><div style="background: picture/cover/cover08.jpg"></div></a><div class="content"><a class="title" href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合">Java集合</a><time datetime="2022-04-14T00:18:32.000Z" title="发表于 2022-04-14 08:18:32">2022-04-14</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">开发工具</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/"><span class="card-category-list-name">开发框架</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="card-category-list-name">数据库</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%A7%86%E9%A2%91%E5%89%AA%E8%BE%91/"><span class="card-category-list-name">视频剪辑</span><span class="card-category-list-count">1</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Spring-Cloud/" style="font-size: 1.1em; color: #999">Spring Cloud</a> <a href="/tags/Java%E5%9F%BA%E7%A1%80/" style="font-size: 1.5em; color: #99a9bf">Java基础</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 1.3em; color: #99a1ac">开发工具</a> <a href="/tags/Spring-Boot/" style="font-size: 1.3em; color: #99a1ac">Spring Boot</a> <a href="/tags/Java-EE/" style="font-size: 1.1em; color: #999">Java EE</a> <a href="/tags/MySQL/" style="font-size: 1.1em; color: #999">MySQL</a> <a href="/tags/MyBatis/" style="font-size: 1.1em; color: #999">MyBatis</a> <a href="/tags/Spring/" style="font-size: 1.5em; color: #99a9bf">Spring</a> <a href="/tags/%E8%A7%86%E9%A2%91%E5%89%AA%E8%BE%91/" style="font-size: 1.1em; color: #999">视频剪辑</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/07/"><span class="card-archive-list-date">七月 2022</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/05/"><span class="card-archive-list-date">五月 2022</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/04/"><span class="card-archive-list-date">四月 2022</span><span class="card-archive-list-count">9</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2022/03/"><span class="card-archive-list-date">三月 2022</span><span class="card-archive-list-count">4</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2021/12/"><span class="card-archive-list-date">十二月 2021</span><span class="card-archive-list-count">2</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">18</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-12-24T07:55:43.295Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jerry</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

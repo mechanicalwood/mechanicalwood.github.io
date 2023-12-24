@@ -1,32 +1,443 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MyBatis基础 | Jerry的博客</title><meta name="author" content="Jerry,17795837526@163.com"><meta name="copyright" content="Jerry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MyBatis 有三个基本要素：  核心接口和类 MyBatis配置文件（mybatis-config.xml） SQL映射文件（mapper.xml）  核心接口和类 SqlSessionFactoryBuilder SqlSessionFactoryBuilder 会根据配置信息或者代码生成 SqlSessionFactory，并且提供了多个 build() 方法重载，通过源码分析，可以发现以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis基础">
+<meta property="og:url" content="https://mechanicalwood.github.io/2022/04/14/MyBatis/index.html">
+<meta property="og:site_name" content="Jerry的博客">
+<meta property="og:description" content="MyBatis 有三个基本要素：  核心接口和类 MyBatis配置文件（mybatis-config.xml） SQL映射文件（mapper.xml）  核心接口和类 SqlSessionFactoryBuilder SqlSessionFactoryBuilder 会根据配置信息或者代码生成 SqlSessionFactory，并且提供了多个 build() 方法重载，通过源码分析，可以发现以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2022-04-13T23:20:46.000Z">
+<meta property="article:modified_time" content="2022-04-13T23:20:46.000Z">
+<meta property="article:author" content="Jerry">
+<meta property="article:tag" content="MyBatis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mechanicalwood.github.io/2022/04/14/MyBatis/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MyBatis基础',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-04-14 07:20:46'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/picture/cover/MyBatis.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Jerry的博客"><span class="site-name">Jerry的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MyBatis基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-13T23:20:46.000Z" title="发表于 2022-04-14 07:20:46">2022-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-04-13T23:20:46.000Z" title="更新于 2022-04-14 07:20:46">2022-04-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/">开发框架</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MyBatis基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>MyBatis 有三个基本要素：</p>
+<ul>
+<li>核心接口和类</li>
+<li>MyBatis配置文件（mybatis-config.xml）</li>
+<li>SQL映射文件（mapper.xml）</li>
+</ul>
+<h1 id="核心接口和类"><a href="#核心接口和类" class="headerlink" title="核心接口和类"></a>核心接口和类</h1><p><img src="/picture/content/mybatisCore.PNG"></p>
+<h2 id="SqlSessionFactoryBuilder"><a href="#SqlSessionFactoryBuilder" class="headerlink" title="SqlSessionFactoryBuilder"></a>SqlSessionFactoryBuilder</h2><p><img src="/picture/content/SqlSessionFactoryBuilder.PNG"></p>
+<p>SqlSessionFactoryBuilder 会根据配置信息或者代码生成 SqlSessionFactory，并且提供了多个 build() 方法重载，通过源码分析，可以发现以上方法都是在调用同一签名方法，即：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> SqlSessionFactory <span class="title function_">build</span><span class="params">(Reader reader, String environment, Properties properties)</span></span><br></pre></td></tr></table></figure>
+
+<p>配置信息可以以三种形式提供给 SqlSessionFactoryBuilder 的 build() 方法，分别是 InputStream（字节流）、Reader（字符流）、Configuration（类）。</p>
+<p>由于字节流和字符流都属于读取配置文件的方式，所以就很容易想到构建一个 SqlSessionFactory 有两种方式，即：读取 XML 配置文件和编写代码。一般习惯为采取 XML 配置文件的方式来构造 SqlSessionFactory，这样一方面可以避免硬编码，另一方面方便日后配置人员修改，避免重复编译代码。</p>
+<h4 id="SqlSessionFactoryBuilder的生命周期和作用域"><a href="#SqlSessionFactoryBuilder的生命周期和作用域" class="headerlink" title="SqlSessionFactoryBuilder的生命周期和作用域"></a>SqlSessionFactoryBuilder的生命周期和作用域</h4><p>SqlSessionFactoryBuilder 的最大特点就是用过即丢。创建 SqlSessionFactory 对象之后，这个类就不存在了，因此 SqlSessionFactoryBuilder 的最佳范围就是存在于方法体内，也就是局部变量。</p>
+<h2 id="SqlSessionFactory"><a href="#SqlSessionFactory" class="headerlink" title="SqlSessionFactory"></a>SqlSessionFactory</h2><p>SqlSessionFactory 是工厂接口而不是现实类，他的任务就是创建 SqlSession。</p>
+<p>所有的 MyBatis 应用都以 SqlSessionFactory 实例为中心，SqlSessionFactory 的实例可以通过 SqlSessionFactoryBuilder 对象来获取。有了它以后，顾名思义，就可以通过 SqlSessionFactory 提供的 openSession() 方法来获取 SqlSession 实例。源码如下。</p>
+<p><img src="/picture/content/SqlSessionFactory.PNG"></p>
+<h4 id="SqlSessionFactory的生命周期和作用域"><a href="#SqlSessionFactory的生命周期和作用域" class="headerlink" title="SqlSessionFactory的生命周期和作用域"></a>SqlSessionFactory的生命周期和作用域</h4><p>SqlSessionFactory 对象一旦创建，就会在整个应用程序过程中始终存在。没有理由去销毁或再创建它，并且在应用程序运行中也不建议多次创建 SqlSessionFactory。因此 SqlSessionFactory 的最佳作用域是 Application，即随着应用程序的生命周期一直存在。这种“存在于整个应用运行期间，并且只存在一个对象实例”的模式就是所谓的单例模式（指在运行期间有且仅有一个实例）。</p>
+<h2 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h2><p>SqlSession 是用于执行持久化操作的对象，类似于 JDBC 中的 Connection。它提供了面向数据库执行 SQL 命令所需的所有方法，可以通过 SqlSession 实例直接运行已映射的 SQL 语句。</p>
+<p><img src="/picture/content/SqlSession.PNG"></p>
+<p>SqlSession 的用途主要有两种。</p>
+<ol>
+<li>获取映射器。让映射器通过命名空间和方法名称找到对应的 SQL，并发送给数据库，执行后返回结果。</li>
+<li>直接通过“命名空间（namespace）+SQL id”的方式执行 SQL，不需要获取映射器。这是 iBatis 版本留下的方式。</li>
+</ol>
+<h4 id="SqlSession生命周期和作用域"><a href="#SqlSession生命周期和作用域" class="headerlink" title="SqlSession生命周期和作用域"></a>SqlSession生命周期和作用域</h4><p>SqlSession 对应一次数据库会话。由于数据库会话不是永久的，因此 SqlSession 的生命周期也不是永久的，每次访问数据库时都需要创建 SqlSession 对象。</p>
+<p>需要注意的是：每个线程都有自己的 SqlSession 实例，SqlSession 实例不能被共享，也不是线程安全的。因此 SqlSession 的作用域范围是 request 作用域或方法体作用域内。</p>
+<h1 id="MyBatis配置文件"><a href="#MyBatis配置文件" class="headerlink" title="MyBatis配置文件"></a>MyBatis配置文件</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">configuration</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="string">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span><span class="comment">&lt;!-- 配置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span> /&gt;</span><span class="comment">&lt;!-- 属性 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">settings</span> /&gt;</span><span class="comment">&lt;!-- 设置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span> /&gt;</span><span class="comment">&lt;!-- 类型命名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeHandlers</span> /&gt;</span><span class="comment">&lt;!-- 类型处理器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">objectFactory</span> /&gt;</span><span class="comment">&lt;!-- 对象工厂 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span> /&gt;</span><span class="comment">&lt;!-- 插件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span>&gt;</span><span class="comment">&lt;!-- 配置环境 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span>&gt;</span><span class="comment">&lt;!-- 环境变量 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> /&gt;</span><span class="comment">&lt;!-- 事务管理器 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> /&gt;</span><span class="comment">&lt;!-- 数据源 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">databaseIdProvider</span> /&gt;</span><span class="comment">&lt;!-- 数据库厂商标识 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span> /&gt;</span><span class="comment">&lt;!-- 映射器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>mybatis-config.xml 文件中的元素节点是有一定顺序的，节点位置必须按以上位置排序，否则会编译错误。</p>
+<h1 id="MyBatis映射器"><a href="#MyBatis映射器" class="headerlink" title="MyBatis映射器"></a>MyBatis映射器</h1><p>映射器由 Java 接口和 XML 文件（或注解）共同组成，它的作用如下。</p>
+<ul>
+<li>定义参数类型</li>
+<li>配置缓存</li>
+<li>提供 SQL 语句和动态 SQL</li>
+<li>定义查询结果和 POJO 的映射关系</li>
+</ul>
+<p>映射器有以下两种实现方式。</p>
+<ul>
+<li>通过 XML 文件方式实现，比如我们在 mybatis-config.xml 文件中描述的 XML 文件，用来生成 mapper。</li>
+<li>通过注解的方式实现，使用 Configuration 对象注册 Mapper 接口。</li>
+</ul>
+<p>如果 SQL 语句存在动态 SQL 或者比较复杂，使用注解写在 Java 文件里可读性差，且增加了维护的成本。所以一般建议使用 XML 文件配置的方式，避免重复编写 SQL 语句。</p>
+<h2 id="MyBatis-映射器的主要元素"><a href="#MyBatis-映射器的主要元素" class="headerlink" title="MyBatis 映射器的主要元素"></a>MyBatis 映射器的主要元素</h2><table>
+<thead>
+<tr>
+<th>元素名称</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mapper</td>
+<td>映射文件的根节点，只有 namescape 一个属性</td>
+<td>namescape 作用如下：用于区分不同的 mapper，全局唯一绑定DAO接口，即面向接口编程。当 namescape 绑定某一接口后，可以不用写该接口的实现类，MyBatis 会通过接口的完整限定名查找到对应的 mapper 配置来执行 SQL 语句。因此 namescape 的命名必须要跟接口同名。</td>
+</tr>
+<tr>
+<td>select</td>
+<td>查询语句，最常用、最复杂的元素之一</td>
+<td>可以自定义参数，返回结果集等</td>
+</tr>
+<tr>
+<td>insert</td>
+<td>插入语句</td>
+<td>执行后返回一个整数，代表插入的条数</td>
+</tr>
+<tr>
+<td>update</td>
+<td>更新语句</td>
+<td>执行后返回一个整数，代表更新的条数</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>删除语句</td>
+<td>执行后返回一个整数，代表删除的条数</td>
+</tr>
+<tr>
+<td>parameterMap</td>
+<td>定义参数映射关系</td>
+<td>即将被删除的元素，不建议使用</td>
+</tr>
+<tr>
+<td>sql</td>
+<td>允许定义一部分的 SQL，然后在各个地方引用它</td>
+<td>例如，一张表列名，我们可以一次定义，在多个 SQL 语句中使用</td>
+</tr>
+<tr>
+<td>resultMap</td>
+<td>用来描述数据库结果集与对象的对应关系，它是最复杂、最强大的元素</td>
+<td>提供映射规则</td>
+</tr>
+<tr>
+<td>cache</td>
+<td>配置给定命名空间的缓存</td>
+<td>-</td>
+</tr>
+<tr>
+<td>cache-ref</td>
+<td>其它命名空间缓存配置的引用</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h1 id="MyBatis-有两种执行-SQL-语句的方式"><a href="#MyBatis-有两种执行-SQL-语句的方式" class="headerlink" title="MyBatis 有两种执行 SQL 语句的方式"></a>MyBatis 有两种执行 SQL 语句的方式</h1><ol>
+<li>通过 SqlSession 发送 SQL</li>
+<li>通过 SqlSession 获取 Mapper 接口，通过 Mapper 接口发送 SQL</li>
+</ol>
+<h1 id="MyBatis标签"><a href="#MyBatis标签" class="headerlink" title="MyBatis标签"></a>MyBatis标签</h1><h2 id="select标签"><a href="#select标签" class="headerlink" title="select标签"></a>select标签</h2><table>
+<thead>
+<tr>
+<th>属性名称</th>
+<th>描 述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>它和 Mapper 的命名空间组合起来使用，是唯一标识符，供 MyBatis 调用</td>
+<td>如果命名空间+id不唯一，那么 MyBatis 抛出异常</td>
+</tr>
+<tr>
+<td>parameterType</td>
+<td>表示传入 SQL 语句传入参数类型的全限定名或别名。它是一个可选属性，MyBatis 能推断出具体传入语句的参数</td>
+<td>支持基本数据类型和 JavaBean、Map 等复杂数据类型</td>
+</tr>
+<tr>
+<td>resultType</td>
+<td>SQL 语句执行后返回的类型（全限定名或者别名）。如果是集合类型，返回的是集合元素的类型，返回时可以使用 resultType 或 resultMap 之一</td>
+<td>-</td>
+</tr>
+<tr>
+<td>resultMap</td>
+<td>它是映射集的引用，与 <resultMap> 元素一起使用，返回时可以使用 resultType 或 resultMap 之一</td>
+<td>是 MyBatis 最复杂的元素，可以配置映射规则、级联、typeHandler 等</td>
+</tr>
+<tr>
+<td>flushCache</td>
+<td>用于设置在调用 SQL 语句后是否要求 MyBatis 清空之前查询的本地缓存和二级缓存</td>
+<td>默认值为 false，如果设置为 true，则任何时候只要 SQL 语句被调用都将清空本地缓存和二级缓存</td>
+</tr>
+<tr>
+<td>useCache</td>
+<td>启动二级缓存的开关，默认值为 true，表示将査询结果存入二级缓存中</td>
+<td>-</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>用于设置超时参数，单位是秒（s），超时将抛出异常</td>
+<td>-</td>
+</tr>
+<tr>
+<td>fetchSize</td>
+<td>获取记录的总条数设定</td>
+<td>默认值是数据库厂商提供的 JDBC 驱动所设置的条数</td>
+</tr>
+<tr>
+<td>statementType</td>
+<td>告诉 MyBatis 使用哪个 JDBC 的 Statement 工作，取值为 STATEMENT（Statement）、 PREPARED（PreparedStatement）、CALLABLE（CallableStatement）</td>
+<td>-</td>
+</tr>
+<tr>
+<td>resultSetType</td>
+<td>这是针对 JDBC 的 ResultSet 接口而言，其值可设置为 FORWARD_ONLY（只允许向前访问）、SCROLL_SENSITIVE（双向滚动，但不及时更新）、SCROLLJNSENSITIVE（双向滚动，及时更新）</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h2 id="insert-标签"><a href="#insert-标签" class="headerlink" title="insert 标签"></a>insert 标签</h2><table>
+<thead>
+<tr>
+<th>属性名称</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>它和 Mapper 的命名空间组合起来使用，是唯一标识符，供 MyBatis 调用</td>
+<td>如果命名空间+ id 不唯一，那么 MyBatis 抛出异常</td>
+</tr>
+<tr>
+<td>parameterType</td>
+<td>传入 SQL 语句的参数类型的全限定名或别名，它是一个可选属性。</td>
+<td>支持基本数据类型和 JavaBean、Map 等复杂数据类型</td>
+</tr>
+<tr>
+<td>keyProperty</td>
+<td>该属性的作用是将插入操作的返回值赋给 PO 类的某个属性，通常为主键对应的属性。如果是联合主键，可以将多个值用逗号隔开。</td>
+<td>-</td>
+</tr>
+<tr>
+<td>useGeneratedKe</td>
+<td>该属性用来设置，是否使用 JDBC 提供的 getGenereatedKeys() 方法，获取数据库内部产生的主键并赋值到 keyProperty 属性设置的请求对象的属性中，例如 MySQL、SQL Server 等自动递增的字段，其默认值为 false。</td>
+<td>该属性值设置为 true 后，会将数据库生成的主键回填到请求对象中，以供其他业务使用。</td>
+</tr>
+<tr>
+<td>flushCache</td>
+<td>该属性用于设置执行该操作后，是否会清空二级缓存和本地缓存，默认值为 true。</td>
+<td>-</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>该属性用于设置执行该操作的最大时限，如果超时，就抛异常。</td>
+<td>-</td>
+</tr>
+<tr>
+<td>databaseId</td>
+<td>取值范围 oracle、mysql 等，表示数据库厂家；元素内部可通过 <if test="_databaseId = 'oracle'"> 来为特定数据库指定不同的 sql 语句。</td>
+<td>MyBatis 可以根据不同的数据库厂商执行不同的语句，这种多厂商的支持是基于映射语句中的 databaseId 属性。 MyBatis 会加载不带 databaseId 属性和带有匹配当前数据库 databaseId 属性的所有语句。 如果同时找到带有 databaseId 和不带 databaseId 的相同语句，则后者会被舍弃。</td>
+</tr>
+<tr>
+<td>keyColumn</td>
+<td>该属性用于设置第几列是主键，当主键列不是表中的第 1 列时，就需要设置该属性。如果是联合主键，可以将多个值用逗号隔开。</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h2 id="update-标签"><a href="#update-标签" class="headerlink" title="update 标签"></a>update 标签</h2><table>
+<thead>
+<tr>
+<th>属性名称</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>它和 Mapper 的命名空间组合起来使用，是唯一标识符，供 MyBatis 调用</td>
+<td>如果命名空间+ id 不唯一，那么 MyBatis 抛出异常</td>
+</tr>
+<tr>
+<td>parameterType</td>
+<td>传入 SQL 语句的参数类型的全限定名或别名，它是一个可选属性。</td>
+<td>支持基本数据类型和 JavaBean、Map 等复杂数据类型</td>
+</tr>
+<tr>
+<td>flushCache</td>
+<td>该属性用于设置执行该操作后，是否会清空二级缓存和本地缓存，默认值为 true。</td>
+<td>-</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>该属性用于设置 SQL 执行的超时时间，如果超时，就抛异常。</td>
+<td>-</td>
+</tr>
+<tr>
+<td>statementType</td>
+<td>执行 SQL 时使用的 statement 类型, 默认为 PREPARED，可选值：STATEMENT，PREPARED 和 CALLABLE。</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h2 id="delete-标签"><a href="#delete-标签" class="headerlink" title="delete 标签"></a>delete 标签</h2><p>属性同update标签。</p>
+<h2 id="resultMap-标签"><a href="#resultMap-标签" class="headerlink" title="resultMap 标签"></a>resultMap 标签</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;&quot;</span> <span class="attr">type</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor</span>&gt;</span><span class="comment">&lt;!-- 类再实例化时用来注入结果到构造方法 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">idArg</span>/&gt;</span><span class="comment">&lt;!-- ID参数，结果为ID --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">arg</span>/&gt;</span><span class="comment">&lt;!-- 注入到构造方法的一个普通结果 --&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">constructor</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>/&gt;</span><span class="comment">&lt;!-- 用于表示哪个列是主键 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span>/&gt;</span><span class="comment">&lt;!-- 注入到字段或JavaBean属性的普通结果 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">&quot;&quot;</span>/&gt;</span><span class="comment">&lt;!-- 用于一对一关联 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">&quot;&quot;</span>/&gt;</span><span class="comment">&lt;!-- 用于一对多、多对多关联 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">discriminator</span> <span class="attr">javaType</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="comment">&lt;!-- 使用结果值来决定使用哪个结果映射 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">case</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>/&gt;</span><span class="comment">&lt;!-- 基于某些值的结果映射 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">discriminator</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><resultMap> 元素的 type 属性表示需要的 POJO，id 属性是 resultMap 的唯一标识。</li>
+<li>子元素 <constructor> 用于配置构造方法。当一个 POJO 没有无参数构造方法时使用。</li>
+<li>子元素 <id> 用于表示哪个列是主键。允许多个主键，多个主键称为联合主键。</li>
+<li>子元素 <result> 用于表示 POJO 和 SQL 列名的映射关系。</li>
+<li>子元素 <association>、<collection> 和 <discriminator> 用在级联的情况下。</li>
+</ul>
+<p>id 和 result 元素都有以下属性。</p>
+<table>
+<thead>
+<tr>
+<th>元素</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>property</td>
+<td>映射到列结果的字段或属性。如果 POJO 的属性和 SQL 列名（column元素）是相同的，那么 MyBatis 就会映射到 POJO 上</td>
+</tr>
+<tr>
+<td>column</td>
+<td>对应 SQL 列</td>
+</tr>
+<tr>
+<td>javaType</td>
+<td>配置 Java 类型。可以是特定的类完全限定名或 MyBatis 上下文的别名</td>
+</tr>
+<tr>
+<td>jdbcType</td>
+<td>配置数据库类型。这是 JDBC 类型，MyBatis 已经为我们做了限定，基本支持所有常用数据库类型</td>
+</tr>
+<tr>
+<td>typeHandler</td>
+<td>类型处理器。允许你用特定的处理器来覆盖 MyBatis 默认的处理器。需要指定 jdbcType 和 javaType 相互转化的规则</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://mechanicalwood.github.io">Jerry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://mechanicalwood.github.io/2022/04/14/MyBatis/">https://mechanicalwood.github.io/2022/04/14/MyBatis/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://mechanicalwood.github.io" target="_blank">Jerry的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MyBatis/">MyBatis</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/04/14/Spring%20Boot/" title="Spring Boot配置基础"><div class="cover" style="background: picture/cover/SpringBoot.png"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring Boot配置基础</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/22/Spring%20MVC/" title="Spring MVC大纲"><div class="cover" style="background: picture/cover/Spring.png"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring MVC大纲</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jerry</div><div class="author-info__description">过往可恋，未来需迎，当下不杂。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%8E%A5%E5%8F%A3%E5%92%8C%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">核心接口和类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SqlSessionFactoryBuilder"><span class="toc-number">1.1.</span> <span class="toc-text">SqlSessionFactoryBuilder</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SqlSessionFactoryBuilder%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.1.0.1.</span> <span class="toc-text">SqlSessionFactoryBuilder的生命周期和作用域</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SqlSessionFactory"><span class="toc-number">1.2.</span> <span class="toc-text">SqlSessionFactory</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SqlSessionFactory%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">SqlSessionFactory的生命周期和作用域</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SqlSession"><span class="toc-number">1.3.</span> <span class="toc-text">SqlSession</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SqlSession%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">SqlSession生命周期和作用域</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">MyBatis配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis%E6%98%A0%E5%B0%84%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">MyBatis映射器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#MyBatis-%E6%98%A0%E5%B0%84%E5%99%A8%E7%9A%84%E4%B8%BB%E8%A6%81%E5%85%83%E7%B4%A0"><span class="toc-number">3.1.</span> <span class="toc-text">MyBatis 映射器的主要元素</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis-%E6%9C%89%E4%B8%A4%E7%A7%8D%E6%89%A7%E8%A1%8C-SQL-%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">MyBatis 有两种执行 SQL 语句的方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MyBatis%E6%A0%87%E7%AD%BE"><span class="toc-number">5.</span> <span class="toc-text">MyBatis标签</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#select%E6%A0%87%E7%AD%BE"><span class="toc-number">5.1.</span> <span class="toc-text">select标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#insert-%E6%A0%87%E7%AD%BE"><span class="toc-number">5.2.</span> <span class="toc-text">insert 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#update-%E6%A0%87%E7%AD%BE"><span class="toc-number">5.3.</span> <span class="toc-text">update 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#delete-%E6%A0%87%E7%AD%BE"><span class="toc-number">5.4.</span> <span class="toc-text">delete 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resultMap-%E6%A0%87%E7%AD%BE"><span class="toc-number">5.5.</span> <span class="toc-text">resultMap 标签</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题"><div style="background: https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"></div></a><div class="content"><a class="title" href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题">无题</a><time datetime="2022-07-26T00:47:52.000Z" title="发表于 2022-07-26 08:47:52">2022-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持"><div style="background: picture/cover/SpringBoot.png"></div></a><div class="content"><a class="title" href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持">Spring Boot其它支持</a><time datetime="2022-07-03T03:20:24.000Z" title="发表于 2022-07-03 11:20:24">2022-07-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识"><div style="background: picture/cover/SpringCloud.png"></div></a><div class="content"><a class="title" href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识">Spring Cloud初识</a><time datetime="2022-05-11T02:45:14.000Z" title="发表于 2022-05-11 10:45:14">2022-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲"><div style="background: picture/cover/Servlet.png"></div></a><div class="content"><a class="title" href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲">Servlet基础大纲</a><time datetime="2022-04-15T00:52:44.000Z" title="发表于 2022-04-15 08:52:44">2022-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合"><div style="background: picture/cover/cover08.jpg"></div></a><div class="content"><a class="title" href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合">Java集合</a><time datetime="2022-04-14T00:18:32.000Z" title="发表于 2022-04-14 08:18:32">2022-04-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jerry</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

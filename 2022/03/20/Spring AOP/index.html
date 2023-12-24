@@ -1,32 +1,328 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Spring AOP | Jerry的博客</title><meta name="author" content="Jerry,17795837526@163.com"><meta name="copyright" content="Jerry"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="目前最流行的 AOP 实现（框架）主要有两个，分别为 Spring AOP 和 AspectJ。    AOP 框架 类型 说明    Spring AOP 动态AOP 是一款基于 AOP 编程的框架，它能够有效的减少系统间的重复代码，达到松耦合的目的。  Spring AOP 使用纯 Java 实现，不需要专门的编译过程和类加载器，在运行期间通过代理方式向目标类植入增强的代码。Spring AO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring AOP">
+<meta property="og:url" content="https://mechanicalwood.github.io/2022/03/20/Spring%20AOP/index.html">
+<meta property="og:site_name" content="Jerry的博客">
+<meta property="og:description" content="目前最流行的 AOP 实现（框架）主要有两个，分别为 Spring AOP 和 AspectJ。    AOP 框架 类型 说明    Spring AOP 动态AOP 是一款基于 AOP 编程的框架，它能够有效的减少系统间的重复代码，达到松耦合的目的。  Spring AOP 使用纯 Java 实现，不需要专门的编译过程和类加载器，在运行期间通过代理方式向目标类植入增强的代码。Spring AO">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2022-03-20T04:02:42.000Z">
+<meta property="article:modified_time" content="2022-03-20T04:02:42.000Z">
+<meta property="article:author" content="Jerry">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mechanicalwood.github.io/2022/03/20/Spring%20AOP/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Spring AOP',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-20 12:02:42'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/picture/cover/Spring.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Jerry的博客"><span class="site-name">Jerry的博客</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Spring AOP</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-20T04:02:42.000Z" title="发表于 2022-03-20 12:02:42">2022-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-20T04:02:42.000Z" title="更新于 2022-03-20 12:02:42">2022-03-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/">开发框架</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Spring AOP"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>目前最流行的 AOP 实现（框架）主要有两个，分别为 Spring AOP 和 AspectJ。</strong></p>
+<table>
+<thead>
+<tr>
+<th>AOP 框架</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Spring AOP</td>
+<td>动态AOP</td>
+<td>是一款基于 AOP 编程的框架，它能够有效的减少系统间的重复代码，达到松耦合的目的。  Spring AOP 使用纯 Java 实现，不需要专门的编译过程和类加载器，在运行期间通过代理方式向目标类植入增强的代码。Spring AOP 支持 2 种代理方式，分别是基于接口的 JDK 动态代理和基于继承的 CGLIB 动态代理。</td>
+</tr>
+<tr>
+<td>AspectJ</td>
+<td>静态AOP</td>
+<td>是一个基于 Java 语言的 AOP 框架，从 Spring 2.0 开始，Spring AOP 引入了对 AspectJ 的支持。  AspectJ 扩展了 Java 语言，提供了一个专门的编译器，在编译时提供横向代码的植入。</td>
+</tr>
+</tbody></table>
+<h1 id="AOP-术语"><a href="#AOP-术语" class="headerlink" title="AOP 术语"></a>AOP 术语</h1><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Joinpoint（连接点）</td>
+<td>AOP 的核心概念，指的是程序执行期间明确定义的一个点，例如方法的调用、类初始化、对象实例化等。  在 Spring 中，连接点则指可以被动态代理拦截目标类的方法。</td>
+</tr>
+<tr>
+<td>Pointcut（切入点）</td>
+<td>又称切点，指要对哪些 Joinpoint 进行拦截，即被拦截的连接点。</td>
+</tr>
+<tr>
+<td>Advice（通知）</td>
+<td>指拦截到 Joinpoint 之后要执行的代码，即对切入点增强的内容。</td>
+</tr>
+<tr>
+<td>Target（目标）</td>
+<td>指代理的目标对象，通常也被称为被通知（advised）对象。</td>
+</tr>
+<tr>
+<td>Weaving（织入）</td>
+<td>指把增强代码应用到目标对象上，生成代理对象的过程。</td>
+</tr>
+<tr>
+<td>Proxy（代理）</td>
+<td>指生成的代理对象。</td>
+</tr>
+<tr>
+<td>Aspect（切面）</td>
+<td>切面是切入点（Pointcut）和通知（Advice）的结合。</td>
+</tr>
+</tbody></table>
+<p>Advice 直译为通知，也有人将其翻译为“增强处理”，共有 5 种类型，如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>通知</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>before（前置通知）</td>
+<td>通知方法在目标方法调用之前执行</td>
+</tr>
+<tr>
+<td>after（后置通知）</td>
+<td>通知方法在目标方法返回或异常后调用</td>
+</tr>
+<tr>
+<td>after-returning（返回后通知）</td>
+<td>通知方法会在目标方法返回后调用</td>
+</tr>
+<tr>
+<td>after-throwing（抛出异常通知）</td>
+<td>通知方法会在目标方法抛出异常后调用</td>
+</tr>
+<tr>
+<td>around（环绕通知）</td>
+<td>通知方法会将目标方法封装起来</td>
+</tr>
+</tbody></table>
+<h1 id="Spring-AOP"><a href="#Spring-AOP" class="headerlink" title="Spring AOP"></a>Spring AOP</h1><h2 id="Spring-AOP-的代理机制"><a href="#Spring-AOP-的代理机制" class="headerlink" title="Spring AOP 的代理机制"></a>Spring AOP 的代理机制</h2><p>Spring 在运行期会为目标对象生成一个动态代理对象，并在代理对象中实现对目标对象的增强。</p>
+<p>Spring AOP 的底层是通过以下 2 种动态代理机制，为目标对象（Target Bean）执行横向织入的。</p>
+<table>
+<thead>
+<tr>
+<th>代理技术</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JDK 动态代理</td>
+<td>Spring AOP 默认的动态代理方式，若目标对象实现了若干接口，Spring 使用 JDK 的 java.lang.reflect.Proxy 类进行代理。</td>
+</tr>
+<tr>
+<td>CGLIB 动态代理</td>
+<td>若目标对象没有实现任何接口，Spring 则使用 CGLIB 库生成目标对象的子类，以实现对目标对象的代理。</td>
+</tr>
+</tbody></table>
+<h2 id="Spring-AOP-连接点"><a href="#Spring-AOP-连接点" class="headerlink" title="Spring AOP 连接点"></a>Spring AOP 连接点</h2><p>Spring AOP 并没有像其他 AOP 框架（例如 AspectJ）一样提供了完成的 AOP 功能，它是 Spring 提供的一种简化版的 AOP 组件。其中最明显的简化就是，Spring AOP 只支持一种连接点类型：方法调用。您可能会认为这是一个严重的限制，但实际上 Spring AOP 这样设计的原因是为了让 Spring 更易于访问。</p>
+<p>方法调用连接点是迄今为止最有用的连接点，通过它可以实现日常编程中绝大多数与 AOP 相关的有用的功能。如果需要使用其他类型的连接点（例如成员变量连接点），我们可以将 Spring AOP 与其他的 AOP 实现一起使用，最常见的组合就是 Spring AOP + ApectJ。 </p>
+<h2 id="Spring-AOP-通知类型"><a href="#Spring-AOP-通知类型" class="headerlink" title="Spring AOP 通知类型"></a>Spring AOP 通知类型</h2><p>AOP 联盟为通知（Advice）定义了一个 org.aopalliance.aop.Interface.Advice 接口。</p>
+<p>Spring AOP 按照通知（Advice）织入到目标类方法的连接点位置，为 Advice 接口提供了 6 个子接口，如下表。</p>
+<table>
+<thead>
+<tr>
+<th>通知类型</th>
+<th>接口</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前置通知</td>
+<td>org.springframework.aop.MethodBeforeAdvice</td>
+<td>在目标方法执行前实施增强。</td>
+</tr>
+<tr>
+<td>后置通知</td>
+<td>org.springframework.aop.AfterReturningAdvice</td>
+<td>在目标方法执行后实施增强。</td>
+</tr>
+<tr>
+<td>后置返回通知</td>
+<td>org.springframework.aop.AfterReturningAdvice</td>
+<td>在目标方法执行完成，并返回一个返回值后实施增强。</td>
+</tr>
+<tr>
+<td>环绕通知</td>
+<td>org.aopalliance.intercept.MethodInterceptor</td>
+<td>在目标方法执行前后实施增强。</td>
+</tr>
+<tr>
+<td>异常通知</td>
+<td>org.springframework.aop.ThrowsAdvice</td>
+<td>在方法抛出异常后实施增强。</td>
+</tr>
+<tr>
+<td>引入通知</td>
+<td>org.springframework.aop.IntroductionInterceptor</td>
+<td>在目标类中添加一些新的方法和属性。</td>
+</tr>
+</tbody></table>
+<h2 id="Spring-AOP-切面类型"><a href="#Spring-AOP-切面类型" class="headerlink" title="Spring AOP 切面类型"></a>Spring AOP 切面类型</h2><p>Spring 使用 org.springframework.aop.Advisor 接口表示切面的概念，实现对通知（Adivce）和连接点（Joinpoint）的管理。</p>
+<p>在 Spring AOP 中，切面可以分为三类：一般切面、切点切面和引介切面。</p>
+<table>
+<thead>
+<tr>
+<th>切面类型</th>
+<th>接口</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>一般切面</td>
+<td>org.springframework.aop.Advisor</td>
+<td>Spring AOP 默认的切面类型。  由于 Advisor 接口仅包含一个 Advice（通知）类型的属性，而没有定义 PointCut（切入点），因此它表示一个不带切点的简单切面。  这样的切面会对目标对象（Target）中的所有方法进行拦截并织入增强代码。由于这个切面太过宽泛，因此我们一般不会直接使用。</td>
+</tr>
+<tr>
+<td>切点切面</td>
+<td>org.springframework.aop.PointcutAdvisor</td>
+<td>Advisor 的子接口，用来表示带切点的切面，该接口在 Advisor 的基础上还维护了一个 PointCut（切点）类型的属性。  使用它，我们可以通过包名、类名、方法名等信息更加灵活的定义切面中的切入点，提供更具有适用性的切面。</td>
+</tr>
+<tr>
+<td>引介切面</td>
+<td>org.springframework.aop.IntroductionAdvisor</td>
+<td>Advisor 的子接口，用来代表引介切面，引介切面是对应引介增强的特殊的切面，它应用于类层面上，所以引介切面适用 ClassFilter 进行定义。</td>
+</tr>
+</tbody></table>
+<h1 id="Spring集成AspectJ"><a href="#Spring集成AspectJ" class="headerlink" title="Spring集成AspectJ"></a>Spring集成AspectJ</h1><h2 id="基于-xml-配置实现-AspectJ-的-AOP-开发"><a href="#基于-xml-配置实现-AspectJ-的-AOP-开发" class="headerlink" title="基于 xml 配置实现 AspectJ 的 AOP 开发"></a>基于 xml 配置实现 AspectJ 的 AOP 开发</h2><h2 id="基于注解方式实现-AspectJ-的-AOP-开发"><a href="#基于注解方式实现-AspectJ-的-AOP-开发" class="headerlink" title="基于注解方式实现 AspectJ 的 AOP 开发"></a>基于注解方式实现 AspectJ 的 AOP 开发</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://mechanicalwood.github.io">Jerry</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://mechanicalwood.github.io/2022/03/20/Spring%20AOP/">https://mechanicalwood.github.io/2022/03/20/Spring%20AOP/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://mechanicalwood.github.io" target="_blank">Jerry的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spring/">Spring</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/03/20/Spring%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring其它支持"><div class="cover" style="background: picture/cover/Spring.png"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring其它支持</div></div></a></div><div class="next-post pull-right"><a href="/2022/03/17/Spring%20IoC/" title="Spring IoC"><div class="cover" style="background: picture/cover/Spring.png"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Spring IoC</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/03/22/Spring%20MVC/" title="Spring MVC大纲"><div class="cover" style="background: picture/cover/Spring.png"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-22</div><div class="title">Spring MVC大纲</div></div></a></div><div><a href="/2022/03/17/Spring%20IoC/" title="Spring IoC"><div class="cover" style="background: picture/cover/Spring.png"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-17</div><div class="title">Spring IoC</div></div></a></div><div><a href="/2022/03/20/Spring%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring其它支持"><div class="cover" style="background: picture/cover/Spring.png"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-03-20</div><div class="title">Spring其它支持</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Jerry</div><div class="author-info__description">过往可恋，未来需迎，当下不杂。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AOP-%E6%9C%AF%E8%AF%AD"><span class="toc-number">1.</span> <span class="toc-text">AOP 术语</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring-AOP"><span class="toc-number">2.</span> <span class="toc-text">Spring AOP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-AOP-%E7%9A%84%E4%BB%A3%E7%90%86%E6%9C%BA%E5%88%B6"><span class="toc-number">2.1.</span> <span class="toc-text">Spring AOP 的代理机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-AOP-%E8%BF%9E%E6%8E%A5%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">Spring AOP 连接点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-AOP-%E9%80%9A%E7%9F%A5%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.3.</span> <span class="toc-text">Spring AOP 通知类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-AOP-%E5%88%87%E9%9D%A2%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.4.</span> <span class="toc-text">Spring AOP 切面类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E9%9B%86%E6%88%90AspectJ"><span class="toc-number">3.</span> <span class="toc-text">Spring集成AspectJ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-xml-%E9%85%8D%E7%BD%AE%E5%AE%9E%E7%8E%B0-AspectJ-%E7%9A%84-AOP-%E5%BC%80%E5%8F%91"><span class="toc-number">3.1.</span> <span class="toc-text">基于 xml 配置实现 AspectJ 的 AOP 开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0-AspectJ-%E7%9A%84-AOP-%E5%BC%80%E5%8F%91"><span class="toc-number">3.2.</span> <span class="toc-text">基于注解方式实现 AspectJ 的 AOP 开发</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题"><div style="background: https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"></div></a><div class="content"><a class="title" href="/2022/07/26/%E3%80%90MyBatis%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6/" title="无题">无题</a><time datetime="2022-07-26T00:47:52.000Z" title="发表于 2022-07-26 08:47:52">2022-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持"><div style="background: picture/cover/SpringBoot.png"></div></a><div class="content"><a class="title" href="/2022/07/03/Spring%20Boot%20%E5%85%B6%E5%AE%83%E6%94%AF%E6%8C%81/" title="Spring Boot其它支持">Spring Boot其它支持</a><time datetime="2022-07-03T03:20:24.000Z" title="发表于 2022-07-03 11:20:24">2022-07-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识"><div style="background: picture/cover/SpringCloud.png"></div></a><div class="content"><a class="title" href="/2022/05/11/Spring%20Cloud/" title="Spring Cloud初识">Spring Cloud初识</a><time datetime="2022-05-11T02:45:14.000Z" title="发表于 2022-05-11 10:45:14">2022-05-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲"><div style="background: picture/cover/Servlet.png"></div></a><div class="content"><a class="title" href="/2022/04/15/Servlet%E5%9F%BA%E7%A1%80%E5%A4%A7%E7%BA%B2/" title="Servlet基础大纲">Servlet基础大纲</a><time datetime="2022-04-15T00:52:44.000Z" title="发表于 2022-04-15 08:52:44">2022-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合"><div style="background: picture/cover/cover08.jpg"></div></a><div class="content"><a class="title" href="/2022/04/14/Java%E9%9B%86%E5%90%88/" title="Java集合">Java集合</a><time datetime="2022-04-14T00:18:32.000Z" title="发表于 2022-04-14 08:18:32">2022-04-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Jerry</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
